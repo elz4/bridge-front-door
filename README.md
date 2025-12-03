@@ -20,7 +20,16 @@ Question/statement list:
 * Please select your case worker.
 
 ### Set up
-The file `create_audio_file.py` creates static files of a given English phrase in multiple languages. It has been run for the questions listed above in six languages, with messages saved in the `static` folder with a subfolder according to the message text. In order to run the script, take the following set up steps after cloning the repo.
+The file `create_audio_file.py` creates static files of a given English phrase in multiple languages. It has been run for the questions listed above in five languages plus English, with messages saved in the `static` folder with a subfolder according to the message text. The following languauges are currently configured for translation, but any of hundreds of languages supported by both [Google text to speech](https://docs.cloud.google.com/speech-to-text/docs/speech-to-text-supported-languages) (TTS) and [Gemini's](https://support.google.com/gemini/answer/13575153?hl=en) many supported languages could be added.
+1. Swahili
+2. Spanish
+3. Arabic
+4. Russian
+5. Ukranian
+
+Note that none of the translation or LLM APIs we investigated support Dari directly. The best approach may be Persian (fa) voice and validate with native speakers that the wording is acceptable for your context, but the Persian configuration was throwing exceptions so this was excluded. Manual recording of a Dari speaker might also be a good substitute.
+
+In order to run the script to create additional batch translated audio files, take the following set up steps after cloning the repo.
 
 1. Go https://cloud.google.com/vertex-ai and click "Try it in console". You will be allowed $300 free trial, which should be enough for many audio translations, but do keep an eye on billing. Also note this has different terms of service than GSuite, and no sensitive data should be shared via Vertex AI without due dilligence on data use.
 2. Install the relevant google tools (`pip install --upgrade google-cloud-texttospeech` and `pip install --upgrade google-genai`). Recommend using venv prior to package installation (`python -m venv myprojectenv`, `source myprojectenv/bin/activate`) for macOS and Linux).
@@ -43,6 +52,7 @@ AI Assisted Coding Solutions
 Functional updates:
 * Note that if a staff member will always be invovled in the tablet use, the same API calls in `create_audio_file.py` could easily be used to create a live translation functionality that could be added to the app. There could be "staff speaks" and "client speaks" buttons, and then a set of 3 API calls in the backend for speech -> text, text -> translated_text, translated_text -> translated_speech for speech to speech translation. The middle translation step could be done via Gemini API calls or Google Translate, as testing quality indicates.
 * Integration with Google calendar for each scheduling in native language (a Conversational Agents Playbook may be helpful for this)
+* Additional advanced updates could include the abiltiy to toggle between Gemini and Google Translate if the translation is low quality, or some automated LLM as judge checks of translation quality to choose the best translation.
 
 Upgrades to translation/audio:
 * Consider experimentation with various Gemini models and human SME for quality

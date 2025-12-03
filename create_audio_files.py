@@ -77,7 +77,7 @@ LANG_CONFIG = {
 
     # Note this configuration needs work - voice name is automatically selected 
     # for others but not here
-    "fa": {"language_code": "fa-IR", "voice_name": None},   # Persian as Dari proxy
+    # "fa": {"language_code": "fa-IR", "voice_name": None},   # Persian as Dari proxy
 }
 def synthesize_to_mp3(text: str, lang_key: str, out_dir: str = "static/audio3") -> str:
     """
@@ -118,41 +118,30 @@ def synthesize_to_mp3(text: str, lang_key: str, out_dir: str = "static/audio3") 
 
 
 if __name__ == "__main__":
-    # Example: your fixed message text per language (assume human translations)
-    MODE = "TRANSLATE_AND_TTS" # "TTS_ONLY"  # "TRANSLATE_AND_TTS"
+    # ENGLISH_MESSAGE = "Do you have an appointment?"
+    # lang_key = "es"
+    # text = translate_text(ENGLISH_MESSAGE, lang_key)
+    # print(text)
+    
+    MESSAGES_DIR_NAMES = {
+        "static/appt": "Do you have an appointment?",
+        "static/client": "Are you an existing client?",
+        "static/today": "Do you want to make an appointment for later?", # Envisioning an answer of "No I need help immediately"
+        "static/wait": "One moment please.",
+        "static/worker": "Please select your case worker."
+    }
 
-    if MODE == "TTS_ONLY":
-        MESSAGES = {
-            "en": "Welcome. We will ask you a few questions to help us support you today.",
-            "sw": "Karibu. Tutakuuliza maswali machache ili kutusaidia tukuhudumie leo.",
-            "es": "Bienvenido. Le haremos algunas preguntas para poder ayudarle hoy.",
-            "ar": "مرحباً. سنطرح عليك بعض الأسئلة لمساعدتنا على دعمك اليوم.",
-            "ru": "Добро пожаловать. Мы зададим вам несколько вопросов, чтобы лучше помочь вам сегодня.",
-            # "fa": "خوش آمدید. چند سوال از شما می‌پرسیم تا امروز بهتر بتوانیم به شما کمک کنیم.",
-        }
-    
-        for lang_key, text in MESSAGES.items():
-            print(lang_key)
-            url_path = synthesize_to_mp3(text, lang_key)
-            print(lang_key, "->", url_path)
-            
-    elif MODE == "TRANSLATE_AND_TTS":
-        # NEXT STEP: WITH MACHINE TRANSLATION
-        ENGLISH_MESSAGE = "Do you have an appointment?"
-        lang_key = "es"
-        text = translate_text(ENGLISH_MESSAGE, lang_key)
-        print(text)
-    
-        TARGET_LANG_KEYS = ["en", "sw", "es", "ar", "ru", "ua"] #, "fa"]
-    
-        def build_all_messages():
-          for lang_key in TARGET_LANG_KEYS:
-              if lang_key == "en":
-                  text = ENGLISH_MESSAGE
-              else:
-                  text = translate_text(ENGLISH_MESSAGE, lang_key)
-              url_path = synthesize_to_mp3(text, lang_key)
-              print(lang_key, "->", url_path)
-        build_all_messages()
-    else:
-        print("Set valid mode")
+    TARGET_LANG_KEYS = ["en", "sw", "es", "ar", "ru", "uk"] #, "fa"]
+
+    def build_all_messages(english_msg, out_dir):
+      for lang_key in TARGET_LANG_KEYS:
+          if lang_key == "en":
+              text = english_msg
+          else:
+              text = translate_text(english_msg, lang_key)
+          url_path = synthesize_to_mp3(text, lang_key, out_dir=out_dir)
+          print(lang_key, "->", url_path)
+
+    for out_dir, eng_msg in MESSAGES_DIR_NAMES.items():
+        build_all_messages(eng_msg, out_dir)
+

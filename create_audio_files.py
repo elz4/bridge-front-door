@@ -124,6 +124,7 @@ if __name__ == "__main__":
     # print(text)
     
     MESSAGES_DIR_NAMES = {
+        "static/welcome": "Welcome. We will ask you a few questions to help us support you today",
         "static/appt": "Do you have an appointment?",
         "static/client": "Are you an existing client?",
         "static/today": "Do you want to make an appointment for later?", # Envisioning an answer of "No I need help immediately"

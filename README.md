@@ -41,6 +41,7 @@ AI Assisted Coding Solutions
 * Cursor
 
 Functional updates:
+* Note that if a staff member will always be invovled in the tablet use, the same API calls in `create_audio_file.py` could easily be used to create a live translation functionality that could be added to the app. There could be "staff speaks" and "client speaks" buttons, and then a set of 3 API calls in the backend for speech -> text, text -> translated_text, translated_text -> translated_speech for speech to speech translation. The middle translation step could be done via Gemini API calls or Google Translate, as testing quality indicates.
 * Integration with Google calendar for each scheduling in native language (a Conversational Agents Playbook may be helpful for this)
 
 Upgrades to translation/audio:

@@ -5,11 +5,11 @@ Code and work related to a front door for refugee services.
 Bridge needs a lightweight app to run on a tablet that will allow multiple spoken languages to determine if walk up clients have an appointment, whom it is with, if they are existing clients, and if it is 
 
 MVP Requirements:
-[x] Script to create static audio files - complete
-[] Large buttons for language selection that go straight to a series of yes/no written/spoken questions
-[] Back button (for incorrect language selection) and large Yes/No (in that language) plus Green/Red and check/X on respective buttons. (See whiteboard image for rough mockups)
-[] Branching logic/conditional flow for questions as seen in whiteboard image
-[] Screen with selectable photos and names of case workers
+* [x] Script to create static audio files - complete
+* [] Large buttons for language selection that go straight to a series of yes/no written/spoken questions
+* [] Back button (for incorrect language selection) and large Yes/No (in that language) plus Green/Red and check/X on respective buttons. (See whiteboard image for rough mockups)
+* [] Branching logic/conditional flow for questions as seen in whiteboard image
+* [] Screen with selectable photos and names of case workers
 
 Question/statement list:
 * We are going to ask a few questions so we can better help you.
@@ -26,6 +26,8 @@ The file `create_audio_file.py` creates static files of a given English phrase i
 3. Create a service account key [here](https://console.cloud.google.com/apis/credentials/serviceaccountkey?project=YOURPROJECT) and download as a json in the home directory. Rename credentials.json for current code to work.
 4. On first running of the script, you may get an error message with a link to enable text to enable various APIs. You can click through and enable them in the Vertex AI console.
 
+The file `app.py` is just an AI generated flask module to serve up static audio files. It will need editing and a lightweight front end. Other options for future state are below.
+
 ### Future State
 In the future, a lightweight webapp could be made using some of the tools below, suggested by various team members at the Hackathon, to leverage the automated translations.
 
@@ -36,6 +38,9 @@ Low or no code hosted solutions:
 AI Assisted Coding Solutions
 * Replit
 * Cursor
+
+Functional updates:
+* Integration with Google calendar for each scheduling in native language (a Conversational Agents Playbook may be helpful for this)
 
 Upgrades to translation/audio:
 * Consider experimentation with various Gemini models and human SME for quality
